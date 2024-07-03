@@ -136,52 +136,56 @@
     </div>
     
     <div id="lectureCheck" style="display: none;">
-      <h2>Lecture Progress Check</h2>
-      <div class="mb-3">
-        <label for="completedLectures" class="form-label">Completed Lectures:</label>
-        <input type="number" class="form-control" id="completedLectures" min="0">
-      </div>
-
-      <div class="mb-3">
-        <label for="totalLectures" class="form-label">Total Number of Lectures:</label>
-        <input type="number" class="form-control" id="totalLectures" min="0">
-      </div>
-      <button class="btn btn-primary" onclick="checkLectureProgress()">Check Progress</button>
-      <div id="lectureResult" class="mt-3"></div>
-    </div>
-    
-    <div id="assignmentCheck" style="display: none;">
-      <h2>Assignment Check</h2>
-      <div id="assignmentList"></div>
-      <button class="btn btn-primary mt-3" onclick="saveAssignments()">Save Progress</button>
-    </div>
-    
-    <div id="examCheck" style="display: none;">
-      <h2>Exam Check</h2>
-      <p>Is there any OPPE, quiz, or end term exam in the next three days?</p>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="examRadio" id="examYes" value="yes">
-        <label class="form-check-label" for="examYes">Yes</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="examRadio" id="examNo" value="no">
-        <label class="form-check-label" for="examNo">No</label>
-      </div>
-      <button class="btn btn-primary mt-3" onclick="checkExam()">Check</button>
-      <div id="examResult" class="mt-3"></div>
-    </div>
-    
-    <div id="finalCheck" style="display: none;">
-      <h2>Final Check</h2>
-      <p class="lead">Check everything else</p>
-      <ul>
-        <li>Review your study notes</li>
-        <li>Prepare for upcoming deadlines</li>
-        <li>Organize your study materials</li>
-        <li>Take breaks and stay hydrated</li>
-      </ul>
-    </div>
+      <h2><div id="lectureCheck" style="display: none;">
+  <h2>Lecture Progress Check</h2>
+  <div class="mb-3">
+    <label for="completedLectures" class="form-label">Completed Lectures:</label>
+    <input type="number" class="form-control" id="completedLectures" min="0">
   </div>
+
+  <div class="mb-3">
+    <label for="totalLectures" class="form-label">Total Number of Lectures:</label>
+    <input type="number" class="form-control" id="totalLectures" min="0">
+  </div>
+  <button class="btn btn-primary" onclick="checkLectureProgress()">Check Progress</button>
+  <div id="lectureResult" class="mt-3"></div>
+  <button class="btn btn-secondary mt-3" onclick="showPage('assignmentCheck')">Next</button>
+</div>
+
+<div id="assignmentCheck" style="display: none;">
+  <h2>Assignment Check</h2>
+  <div id="assignmentList"></div>
+  <button class="btn btn-primary mt-3" onclick="saveAssignments()">Save Progress</button>
+  <button class="btn btn-secondary mt-3" onclick="showPage('examCheck')">Next</button>
+</div>
+
+<div id="examCheck" style="display: none;">
+  <h2>Exam Check</h2>
+  <p>Is there any OPPE, quiz, or end term exam in the next three days?</p>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="examRadio" id="examYes" value="yes">
+    <label class="form-check-label" for="examYes">Yes</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="examRadio" id="examNo" value="no">
+    <label class="form-check-label" for="examNo">No</label>
+  </div>
+  <button class="btn btn-primary mt-3" onclick="checkExam()">Check</button>
+  <div id="examResult" class="mt-3"></div>
+  <button class="btn btn-secondary mt-3" onclick="showPage('finalCheck')">Next</button>
+</div>
+
+<div id="finalCheck" style="display: none;">
+  <h2>Final Check</h2>
+  <p class="lead">Check everything else</p>
+  <ul>
+    <li>Review your study notes</li>
+    <li>Prepare for upcoming deadlines</li>
+    <li>Organize your study materials</li>
+    <li>Take breaks and stay hydrated</li>
+  </ul>
+  <button class="btn btn-secondary mt-3" onclick="showPage('home')">Back to Home</button>
+</div>
 
   <script>
     let assignments = {
