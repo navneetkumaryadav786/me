@@ -9,6 +9,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       min-height: 100vh;
+      padding: 20px;
     }
 
     .navbar {
@@ -35,12 +36,12 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,.1);
       padding: 30px;
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     h1, h2 {
       color: #343a40;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .btn-primary {
@@ -81,6 +82,20 @@
 
     .slide-in {
       animation: slideIn 0.5s ease-out;
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1, h2 {
+        font-size: 1.5rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -183,27 +198,26 @@
       }
     }
 
-function checkLectureProgress() {
-  const completed = parseInt(document.getElementById('completedLectures').value);
-  const total = parseInt(document.getElementById('totalLectures').value);
-  
-  const now = new Date();
-  const remaining = 7 - now.getDay(); // Calculate remaining days until next Sunday
-  
-  const required = Math.ceil((total *(7- remaining)) / 5) - completed;
-  const result = document.getElementById('lectureResult');
-  
-  if (required > 0) {
-    if (required > total)
-    {
-result.innerHTML = `<div class="alert alert-warning slide-in">You need to complete ${total - completed} more lectures to stay on track.</div>`;
+    function checkLectureProgress() {
+      const completed = parseInt(document.getElementById('completedLectures').value);
+      const total = parseInt(document.getElementById('totalLectures').value);
+      
+      const now = new Date();
+      const remaining = 7 - now.getDay(); // Calculate remaining days until next Sunday
+      
+      const required = Math.ceil((total * (7 - remaining)) / 5) - completed;
+      const result = document.getElementById('lectureResult');
+      
+      if (required > 0) {
+        if (required > total) {
+          result.innerHTML = `<div class="alert alert-warning slide-in">You need to complete ${total - completed} more lectures to stay on track.</div>`;
+        } else {
+          result.innerHTML = `<div class="alert alert-warning slide-in">You need to complete ${required} more lectures to stay on track.</div>`;
+        }
+      } else {
+        result.innerHTML = '<div class="alert alert-success slide-in">Great job! You\'re on track with your lectures.</div>';
+      }
     }
-    else{result.innerHTML = `<div class="alert alert-warning slide-in">You need to complete ${required} more lectures to stay on track.</div>`;}
-  } else {
-    result.innerHTML = '<div class="alert alert-success slide-in">Great job! You\'re on track with your lectures.</div>';
-  }
-}
-
 
     function loadAssignments() {
       const list = document.getElementById('assignmentList');
@@ -212,27 +226,27 @@ result.innerHTML = `<div class="alert alert-warning slide-in">You need to comple
       for (const course in assignments) {
         const courseDiv = document.createElement('div');
         courseDiv.innerHTML = `<h3>${course.toUpperCase()}</h3>`;
-        
+
         assignments[course].forEach(assignment => {
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
           checkbox.className = 'form-check-input';
           checkbox.id = `${course}-${assignment.name}`;
           checkbox.checked = assignment.completed;
-          
+
           const label = document.createElement('label');
           label.className = 'form-check-label';
           label.htmlFor = checkbox.id;
           label.textContent = assignment.name;
-          
+
           const div = document.createElement('div');
           div.className = 'form-check';
           div.appendChild(checkbox);
           div.appendChild(label);
-          
+
           courseDiv.appendChild(div);
         });
-        
+
         list.appendChild(courseDiv);
       }
     }
@@ -244,7 +258,7 @@ result.innerHTML = `<div class="alert alert-warning slide-in">You need to comple
           assignment.completed = checkbox.checked;
         });
       }
-      
+
       localStorage.setItem('assignments', JSON.stringify(assignments));
       alert('Assignments saved successfully!');
     }
@@ -252,7 +266,7 @@ result.innerHTML = `<div class="alert alert-warning slide-in">You need to comple
     function checkExam() {
       const examResult = document.getElementById('examResult');
       const hasExam = document.getElementById('examYes').checked;
-      
+
       if (hasExam) {
         examResult.innerHTML = '<div class="alert alert-danger slide-in">Go all out for exam!</div>';
       } else {
@@ -266,7 +280,7 @@ result.innerHTML = `<div class="alert alert-warning slide-in">You need to comple
       if (savedAssignments) {
         assignments = JSON.parse(savedAssignments);
       }
-      
+
       // Reset assignments every Sunday at 11 PM
       const now = new Date();
       if (now.getDay() === 0 && now.getHours() >= 23) {
@@ -275,7 +289,7 @@ result.innerHTML = `<div class="alert alert-warning slide-in">You need to comple
         }
         localStorage.setItem('assignments', JSON.stringify(assignments));
       }
-      
+
       showPage('home');
     };
   </script>
