@@ -215,12 +215,20 @@
     };
 
     function showPage(pageId) {
-  document.querySelectorAll('.container > div').forEach(div => {
-    div.style.display = 'none';
-    div.classList.remove('fade-in');
-  })
-    updateProgressBar(pageId);
-}
+      document.querySelectorAll('.container > div').forEach(div => {
+        div.style.display = 'none';
+        div.classList.remove('fade-in');
+      });
+      const pageToShow = document.getElementById(pageId);
+      pageToShow.style.display = 'block';
+      setTimeout(() => pageToShow.classList.add('fade-in'), 10);
+      if (pageId === 'assignmentCheck') {
+        loadAssignments();
+      }
+      
+      // Update progress bar
+      updateProgressBar(pageId);
+    }
 
 function updateProgressBar(pageId) {
   const pages = ['home', 'lectureCheck', 'assignmentCheck', 'examCheck', 'finalCheck'];
