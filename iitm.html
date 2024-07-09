@@ -254,7 +254,7 @@ function updateProgressBar(pageId) {
       const now = new Date();
       const remaining = 7 - now.getDay(); // Calculate remaining days until next Sunday
       
-      const required = Math.ceil((total-completed)/(remaining-2));
+      const required = Math.ceil((total-completed)/(remaining-1));
       const result = document.getElementById('lectureResult');
       
       if (required > 0) {
